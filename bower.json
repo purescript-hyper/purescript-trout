@@ -3,10 +3,6 @@
   "license": "MPL-2.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/owickstrom/hyper.git"
-  },
-  "repository": {
-    "type": "git",
     "url": "git://github.com/owickstrom/purescript-hyper-routing.git"
   },
   "ignore": [
@@ -17,10 +13,15 @@
   ],
   "dependencies": {
     "purescript-prelude": "^2.5.0",
-    "purescript-console": "^2.0.0",
-    "purescript-hyper": "^0.4.1"
+    "purescript-pathy": "^3.0.2",
+    "purescript-symbols": "^2.0.0",
+    "purescript-uri": "^2.0.0",
+    "purescript-media-types": "^2.0.0",
+    "purescript-argonaut": "^2.0.0",
+    "purescript-smolder": "^6.0.1"
   },
   "devDependencies": {
+    "purescript-console": "^2.0.0",
     "purescript-psci-support": "^2.0.0",
     "purescript-spec": "^0.12.4",
     "purescript-spec-discovery": "^0.4.0"
