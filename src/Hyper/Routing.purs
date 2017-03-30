@@ -4,7 +4,8 @@ module Hyper.Routing
        ( Lit
        , Capture
        , CaptureAll
-       , Handler
+       , Resource
+       , Method
        , Raw
        , Sub
        , LitSub
@@ -30,17 +31,22 @@ data Capture (v :: Symbol) t
 -- | is a `Symbol` that describes
 data CaptureAll (v :: Symbol) t
 
--- | A type-level description of the handler function, terminating a chain of
--- | path literals, captures, and other endpoint type constructs. The `m` symbol
--- | is the HTTP method that is handled. `ct` is the content type.
-data Handler (m :: Symbol) ct b
+-- | A type-level description of the HTTP resource `r`, terminating a chain of
+-- | path literals, captures, and other endpoint type constructs. The `ms` are
+-- | the methods handled by this resource. `cts` are the content types that
+-- | this resource supports.
+data Resource ms cts
 
--- | A type-level description of a raw handler middleware, terminating a chain
--- | of path literals, captures, and other endpoint type constructs. The `m`
--- | symbol is the HTTP method that is handled.
+-- | The `m` symbol is the HTTP method that is handled, and `r` is the
+-- | response representation.
+data Method (m :: Symbol) r
+
+-- | A type-level description of a raw middleware, terminating a chain of path
+-- | literals, captures, and other endpoint type constructs. The `m` symbol is
+-- | the HTTP method that is handled.
 data Raw (m :: Symbol)
 
--- | The `Sub` is used to create the chain of `Lit`, `Capture`, `Handler`,
+-- | The `Sub` is used to create the chain of `Lit`, `Capture`, `Resource`,
 -- | and other such type constructs that build up an endpoint type. `Sub`
 -- | is more often used infix with the `:>` operator.
 data Sub e t

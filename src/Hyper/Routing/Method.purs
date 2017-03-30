@@ -10,22 +10,22 @@ module Hyper.Routing.Method
        , Connect
        ) where
 
-import Hyper.Routing (Handler)
+import Hyper.Routing (Method)
 
-type Options = Handler "OPTIONS"
+type Options = Method "OPTIONS"
 
-type Get = Handler "GET"
+type Get = Method "GET"
 
-type Head = Handler "HEAD"
+type Head = Method "HEAD"
 
-type Post = Handler "POST"
+type Post = Method "POST"
 
-type Put = Handler "PUT"
+type Put = Method "PUT"
 
-type Patch = Handler "PATCH"
+type Patch = Method "PATCH"
 
-type Delete = Handler "DELETE"
+type Delete = Method "DELETE"
 
-type Trace = Handler "TRACE"
+type Trace = Method "TRACE"
 
-type Connect = Handler "CONNECT"
+type Connect = Method "CONNECT"
