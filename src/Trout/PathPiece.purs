@@ -1,4 +1,4 @@
-module Hyper.Routing.PathPiece where
+module Trout.PathPiece where
 
 import Data.Int as Int
 import Control.Category (id)

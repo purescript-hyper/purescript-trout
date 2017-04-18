@@ -1,4 +1,4 @@
-module Hyper.Routing.Method
+module Trout.Method
        ( Options
        , Get
        , Head
@@ -10,7 +10,7 @@ module Hyper.Routing.Method
        , Connect
        ) where
 
-import Hyper.Routing (Method)
+import Trout (Method)
 
 type Options = Method "OPTIONS"
 

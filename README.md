@@ -1,19 +1,44 @@
-# purescript-hyper-routing
+<div align="center">
+<h1>
+<img src="trout.jpg"
+      alt="Trout"
+      width="300">
+<br>
+Trout
+</h1>
+</div>
 
-_Type-level Routing API for Hyper_
+<p align="center">
+<em>Type-Level Routing for PureScript</em>
+</p>
 
-The `purescript-hyper-routing` package brings a Servant-style routing type
-API to Hyper. By using *routing types* you get static guarantees about having
-handled all cases. You also get a lot of stuff for free, such as type-safe
-parameters for handlers, and automatically generated type-safe URIs to
-endpoints.
+<hr>
+
+_Trout_ is a Servant-style routing type API. By using *routing types* you get
+static guarantees about having handled all cases. You also get a lot of stuff
+for free, such as type-safe parameters for handlers, and automatically
+generated type-safe URIs to endpoints.
+
+The primary use of Trout right now is for [Hyper](https://hyper.wickstrom.tech)
+and the
+[purescript-hypertrout](https://owickstrom.github.io/purescript-hypertrout/)
+server package. There is, however, nothing Hyper-specific about this package.
 
 ## Usage
 
-For the documentation on how to use this package, please head over to the
-extensions section in the Hyper documentation, and the part on [Type-Level
-Routing](http://hyper.wickstrom.tech/extensions/type-level-routing/index.html).
+```bash
+bower install --save purescript-trout
+```
+
+_This package should get its own proper documentation soon. In the meantime,
+see [purescript-hypertrout](https://owickstrom.github.io/purescript-hypertrout/)._
 
 ## API Documentation
 
-This library's API documentation is published [on Pursuit](https://pursuit.purescript.org/packages/purescript-hyper-routing).
+This library's API documentation is published [on Pursuit](https://pursuit.purescript.org/packages/purescript-trout).
+
+## License
+
+[Mozilla Public License Version 2.0](LICENSE)
+
+Logo credit: <https://commons.wikimedia.org/wiki/File:Lake_Trout_GLERL.jpg>

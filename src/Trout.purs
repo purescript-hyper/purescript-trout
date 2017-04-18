@@ -1,6 +1,6 @@
 -- Experimental implementation of servant-server style
 -- routing for Hyper.
-module Hyper.Routing
+module Trout
        ( Lit
        , Capture
        , CaptureAll

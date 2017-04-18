@@ -1,10 +1,10 @@
-module Hyper.Routing.ContentType where
+module Trout.ContentType where
 
 import Prelude
 import Data.List.NonEmpty (NonEmptyList)
 import Data.MediaType (MediaType)
 import Data.Tuple (Tuple(..))
-import Hyper.Routing (type (:<|>))
+import Trout (type (:<|>))
 import Type.Proxy (Proxy(..))
 
 class HasMediaType ct where

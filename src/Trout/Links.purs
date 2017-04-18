@@ -1,4 +1,4 @@
-module Hyper.Routing.Links
+module Trout.Links
        ( Link
        , class HasLinks
        , toLinks
@@ -16,8 +16,8 @@ import Data.Newtype (class Newtype)
 import Data.Path.Pathy (dir, file, rootDir, (</>))
 import Data.Symbol (class IsSymbol, SProxy(..), reflectSymbol)
 import Data.URI (HierarchicalPart(..), URI(..))
-import Hyper.Routing (type (:<|>), type (:>), Capture, CaptureAll, Resource, Lit, Raw, (:<|>))
-import Hyper.Routing.PathPiece (class ToPathPiece, toPathPiece)
+import Trout (type (:<|>), type (:>), Capture, CaptureAll, Resource, Lit, Raw, (:<|>))
+import Trout.PathPiece (class ToPathPiece, toPathPiece)
 import Type.Proxy (Proxy(..))
 
 newtype Link = Link (Array String)
