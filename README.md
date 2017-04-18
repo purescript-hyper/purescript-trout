@@ -37,6 +37,21 @@ see [purescript-hypertrout](https://owickstrom.github.io/purescript-hypertrout/)
 
 This library's API documentation is published [on Pursuit](https://pursuit.purescript.org/packages/purescript-trout).
 
+## Changelog
+
+* 0.7.0
+  - Rename to Trout
+  - Bump deps for 0.11.x compatibility
+* 0.6.0
+  - Restructure API to include notion of a Resource
+* 0.5.0
+  - Remove server part, keep only API
+* 0.4.1
+  - Use Hyper 0.4.1
+* 0.4.0
+  - Use upcoming Hyper 0.4.0
+  - Initial version, extracted from main Hyper repo
+
 ## License
 
 [Mozilla Public License Version 2.0](LICENSE)
