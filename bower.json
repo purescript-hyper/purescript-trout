@@ -12,18 +12,18 @@
     "output"
   ],
   "dependencies": {
-    "purescript-prelude": "^2.5.0",
-    "purescript-pathy": "^3.0.2",
-    "purescript-symbols": "^2.0.0",
-    "purescript-uri": "^2.0.0",
-    "purescript-media-types": "^2.0.0",
-    "purescript-argonaut": "^2.0.0",
-    "purescript-smolder": "^6.0.1"
+    "purescript-prelude": "^3.0.0",
+    "purescript-pathy": "^4.0.0",
+    "purescript-symbols": "^3.0.0",
+    "purescript-uri": "^3.0.0",
+    "purescript-media-types": "^3.0.0",
+    "purescript-argonaut": "^3.0.0",
+    "purescript-smolder": "^7.0.0"
   },
   "devDependencies": {
-    "purescript-console": "^2.0.0",
-    "purescript-psci-support": "^2.0.0",
-    "purescript-spec": "^0.12.4",
-    "purescript-spec-discovery": "^0.4.0"
+    "purescript-console": "^3.0.0",
+    "purescript-psci-support": "^3.0.0",
+    "purescript-spec": "^0.13.0",
+    "purescript-spec-discovery": "^0.5.0"
   }
 }
