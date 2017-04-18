@@ -1,9 +1,9 @@
 {
-  "name": "purescript-hyper-routing",
+  "name": "purescript-trout",
   "license": "MPL-2.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/owickstrom/purescript-hyper-routing.git"
+    "url": "git://github.com/owickstrom/purescript-trout.git"
   },
   "ignore": [
     "**/.*",
