@@ -1,4 +1,4 @@
-module Trout.Links
+module Type.Trout.Links
        ( Link
        , class HasLinks
        , toLinks
@@ -16,9 +16,9 @@ import Data.Newtype (class Newtype)
 import Data.Path.Pathy (dir, file, rootDir, (</>))
 import Data.Symbol (class IsSymbol, SProxy(..), reflectSymbol)
 import Data.URI (HierarchicalPart(..), URI(..))
-import Trout (type (:<|>), type (:>), Capture, CaptureAll, Resource, Lit, Raw, (:<|>))
-import Trout.PathPiece (class ToPathPiece, toPathPiece)
 import Type.Proxy (Proxy(..))
+import Type.Trout (type (:<|>), type (:>), Capture, CaptureAll, Resource, Lit, Raw, (:<|>))
+import Type.Trout.PathPiece (class ToPathPiece, toPathPiece)
 
 newtype Link = Link (Array String)
 

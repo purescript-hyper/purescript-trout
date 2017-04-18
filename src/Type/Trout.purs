@@ -1,6 +1,5 @@
--- Experimental implementation of servant-server style
--- routing for Hyper.
-module Trout
+-- Experimental implementation of servant-server style routing API.
+module Type.Trout
        ( Lit
        , Capture
        , CaptureAll

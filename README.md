@@ -39,6 +39,8 @@ This library's API documentation is published [on Pursuit](https://pursuit.pures
 
 ## Changelog
 
+* 0.8.0
+  - Rename top-module to `Type.Trout`
 * 0.7.0
   - Rename to Trout
   - Bump deps for 0.11.x compatibility

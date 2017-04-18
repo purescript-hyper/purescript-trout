@@ -1,11 +1,11 @@
-module Trout.ContentType where
+module Type.Trout.ContentType where
 
 import Prelude
 import Data.List.NonEmpty (NonEmptyList)
 import Data.MediaType (MediaType)
 import Data.Tuple (Tuple(..))
-import Trout (type (:<|>))
 import Type.Proxy (Proxy(..))
+import Type.Trout (type (:<|>))
 
 class HasMediaType ct where
   getMediaType :: Proxy ct -> MediaType

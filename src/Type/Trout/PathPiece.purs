@@ -1,4 +1,4 @@
-module Trout.PathPiece where
+module Type.Trout.PathPiece where
 
 import Data.Int as Int
 import Control.Category (id)

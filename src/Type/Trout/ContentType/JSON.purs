@@ -1,11 +1,11 @@
-module Trout.ContentType.JSON where
+module Type.Trout.ContentType.JSON where
 
 import Prelude
 import Data.Argonaut (class EncodeJson, encodeJson)
 import Data.Argonaut.Core (stringify)
 import Data.MediaType.Common (applicationJSON)
 import Data.Tuple (Tuple(..))
-import Trout.ContentType (class AllMimeRender, class HasMediaType, class MimeRender, getMediaType, mimeRender)
+import Type.Trout.ContentType (class AllMimeRender, class HasMediaType, class MimeRender, getMediaType, mimeRender)
 
 data JSON
 

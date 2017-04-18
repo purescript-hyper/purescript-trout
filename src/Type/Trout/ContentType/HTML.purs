@@ -1,4 +1,4 @@
-module Trout.ContentType.HTML
+module Type.Trout.ContentType.HTML
        ( HTML
        , linkTo
        , class EncodeHTML
@@ -9,11 +9,11 @@ import Prelude
 import Data.MediaType.Common (textHTML)
 import Data.Tuple (Tuple(..))
 import Data.URI (URI, printURI)
-import Trout.ContentType (class AllMimeRender, class HasMediaType, class MimeRender, getMediaType, mimeRender)
 import Text.Smolder.HTML (a)
 import Text.Smolder.HTML.Attributes (href)
 import Text.Smolder.Markup (Markup, MarkupM, (!))
 import Text.Smolder.Renderer.String (render)
+import Type.Trout.ContentType (class AllMimeRender, class HasMediaType, class MimeRender, getMediaType, mimeRender)
 
 data HTML
 

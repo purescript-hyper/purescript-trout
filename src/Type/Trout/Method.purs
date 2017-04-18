@@ -1,4 +1,4 @@
-module Trout.Method
+module Type.Trout.Method
        ( Options
        , Get
        , Head
@@ -10,7 +10,7 @@ module Trout.Method
        , Connect
        ) where
 
-import Trout (Method)
+import Type.Trout (Method)
 
 type Options = Method "OPTIONS"
 
