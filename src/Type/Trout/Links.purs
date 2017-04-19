@@ -20,6 +20,7 @@ import Type.Proxy (Proxy(..))
 import Type.Trout (type (:<|>), type (:>), Capture, CaptureAll, Resource, Lit, Raw, (:<|>))
 import Type.Trout.PathPiece (class ToPathPiece, toPathPiece)
 
+-- | A link, containing zero or more path segments.
 newtype Link = Link (Array String)
 
 instance monoidLink :: Monoid Link where
@@ -47,8 +48,9 @@ linkToURI (Link segments) =
         Nothing ->
           Left rootDir
 
-class HasLinks e mk | e -> mk where
-  toLinks :: Proxy e -> Link -> mk
+-- | A routing type `t` which has links of type `links`.
+class HasLinks t links | t -> links where
+  toLinks :: Proxy t -> Link -> links
 
 instance hasLinksLit :: (HasLinks sub subMk, IsSymbol lit)
                        => HasLinks (Lit lit :> sub) subMk where
@@ -78,5 +80,6 @@ instance hasLinksAltE :: (HasLinks e1 mk1, HasLinks e2 mk2) => HasLinks (e1 :<|>
     toLinks (Proxy :: Proxy e1) link
     :<|> toLinks (Proxy :: Proxy e2) link
 
-linksTo :: forall e t. HasLinks e t => Proxy e -> t
-linksTo e = toLinks e mempty
+-- | Derive links for the type `t`.
+linksTo :: forall t links. HasLinks t links => Proxy t -> links
+linksTo x = toLinks x mempty

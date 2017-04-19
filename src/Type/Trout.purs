@@ -27,17 +27,18 @@ data Lit (v :: Symbol)
 data Capture (v :: Symbol) t
 
 -- | Captures all remaining segments of a path, all as type `t`. The `v`
--- | is a `Symbol` that describes
+-- | is a `Symbol` that describes the captured value.
 data CaptureAll (v :: Symbol) t
 
--- | A type-level description of the HTTP resource `r`, terminating a chain of
+-- | A type-level description of an HTTP resource, terminating a chain of
 -- | path literals, captures, and other endpoint type constructs. The `ms` are
 -- | the methods handled by this resource. `cts` are the content types that
 -- | this resource supports.
 data Resource ms cts
 
 -- | The `m` symbol is the HTTP method that is handled, and `r` is the
--- | response representation.
+-- | response representation (usually some type specific to the application
+-- | domain.)
 data Method (m :: Symbol) r
 
 -- | A type-level description of a raw middleware, terminating a chain of path

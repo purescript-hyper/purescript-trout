@@ -7,6 +7,7 @@ import Data.MediaType.Common (applicationJSON)
 import Data.Tuple (Tuple(..))
 import Type.Trout.ContentType (class AllMimeRender, class HasMediaType, class MimeRender, getMediaType, mimeRender)
 
+-- | A content type, corresponding to the `application/json` media type.
 data JSON
 
 instance hasMediaTypeJson :: HasMediaType JSON where

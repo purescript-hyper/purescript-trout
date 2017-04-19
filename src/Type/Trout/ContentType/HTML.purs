@@ -15,15 +15,21 @@ import Text.Smolder.Markup (Markup, MarkupM, (!))
 import Text.Smolder.Renderer.String (render)
 import Type.Trout.ContentType (class AllMimeRender, class HasMediaType, class MimeRender, getMediaType, mimeRender)
 
+-- | A content type, corresponding to the `text/html` media type.
 data HTML
 
 -- TODO: Enforce that URI comes from a GET-able resource,
 -- perhaps by wrapping the URI type and adding some phantom
 -- type parameter for the HTTP method.
+
+-- | Helper function for generating a Smolder anchor tag based on
+-- | a `URI`.
 linkTo :: URI -> Markup Unit -> Markup Unit
 linkTo uri = a ! href (printURI uri)
 
+-- | Encodes a value as HTML, using Smolder markup.
 class EncodeHTML a where
+  -- | Encode the given value as Smolder markup.
   encodeHTML :: a -> Markup Unit
 
 instance hasMediaTypeHTML :: HasMediaType HTML where
