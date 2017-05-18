@@ -9,6 +9,8 @@ module Type.Trout
        , Sub
        , LitSub
        , AltE(..)
+       , QueryParam
+       , QueryParams
        , type (:>)
        , type (:/)
        , type (:<|>)
@@ -68,6 +70,14 @@ type LitSub (v :: Symbol) t = Sub (Lit v) t
 -- | to access the links of `a` and `b`. That also works recursively with a
 -- | pattern match like `a :<|> b :<|> c :<|> d`.
 data AltE a b = AltE a b
+
+-- | Captures the first value of the query string parameter, or `Nothing`. `t`
+-- | is the type of the value. `k` is the name of the key as a `Symbol`.
+data QueryParam (k :: Symbol) t
+
+-- | Captures all values of the query string parameter, or `[]`. `t` is the
+-- | type of the value. `k` is the name of the key as a `Symbol`.
+data QueryParams (k :: Symbol) t
 
 infixr 5 type Sub as :>
 infixr 5 type LitSub as :/
