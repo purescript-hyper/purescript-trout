@@ -78,7 +78,7 @@ data QueryParam (k :: Symbol) t
 -- | type of the value. `k` is the name of the key as a `Symbol`.
 data QueryParams (k :: Symbol) t
 
-infixr 5 type Sub as :>
-infixr 5 type LitSub as :/
-infixl 4 type AltE as :<|>
-infixl 4 AltE as :<|>
+infixr 9 type Sub as :>
+infixr 9 type LitSub as :/
+infixr 8 type AltE as :<|>
+infixr 8 AltE as :<|>
