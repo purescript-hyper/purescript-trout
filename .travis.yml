@@ -1,0 +1,29 @@
+language: node_js
+
+sudo: false
+
+node_js:
+- '5.5'
+
+env:
+  matrix:
+  - PATH=$HOME/purescript:$PATH
+
+install:
+- wget -O $HOME/purescript.tar.gz https://github.com/purescript/purescript/releases/download/v0.11.3/linux64.tar.gz
+- tar -xvf $HOME/purescript.tar.gz -C $HOME/
+- chmod a+x $HOME/purescript
+- npm install -g bower pulp@next
+- bower install
+
+script:
+- export VERSION=branch-job-$TRAVIS_JOB_NUMBER
+- if [[ "$TRAVIS_PULL_REQUEST" != "false" ]]; then export VERSION=pull-request-job-$TRAVIS_JOB_NUMBER;
+  fi
+- if [[ "$TRAVIS_TAG" != "" ]]; then export VERSION=$TRAVIS_TAG; fi
+- travis_wait pulp build
+- travis_wait pulp test
+
+cache:
+  directories:
+  - output
