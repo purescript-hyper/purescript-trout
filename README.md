@@ -39,6 +39,12 @@ This library's API documentation is published [on Pursuit](https://pursuit.pures
 
 ## Changelog
 
+* 0.9.0
+  - Add support for query params
+  - Move content types to `Method`, instead of in `Resource`, e.g.
+    `Resource (Get MyThing) JSON` becomes `Resource (Get MyThing JSON)`.
+* 0.8.1
+  - Better documentation on the Trout API
 * 0.8.0
   - Rename top-module to `Type.Trout`
 * 0.7.0
