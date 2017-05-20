@@ -39,6 +39,8 @@ This library's API documentation is published [on Pursuit](https://pursuit.pures
 
 ## Changelog
 
+* 0.9.1
+  - Change `AltE` infix operator to right-associative
 * 0.9.0
   - Add support for query params
   - Move content types to `Method`, instead of in `Resource`, e.g.
