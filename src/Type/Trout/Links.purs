@@ -69,7 +69,7 @@ instance hasLinksCaptureAll :: (HasLinks sub subMk, IsSymbol c, ToPathPiece t)
   toLinks _ l =
     toLinks (Proxy :: Proxy sub) <<< append l <<< Link <<< map toPathPiece
 
-instance hasLinksResource :: HasLinks (Resource ms cts) URI where
+instance hasLinksResource :: HasLinks (Resource ms) URI where
   toLinks _ = linkToURI
 
 instance hasLinksRaw :: HasLinks (Raw m) URI where

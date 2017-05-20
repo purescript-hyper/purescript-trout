@@ -1,10 +1,10 @@
-module Hyper.Routing.LinksSpec (spec) where
+module Type.Trout.LinksSpec (spec) where
 
 import Prelude
 import Data.URI (printURI)
-import Hyper.Routing ((:<|>))
-import Hyper.Routing.Links (linksTo)
-import Hyper.Routing.TestSite (UserID(..), testSite)
+import Type.Trout ((:<|>))
+import Type.Trout.Links (linksTo)
+import Type.Trout.TestSite (UserID(..), testSite)
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
 

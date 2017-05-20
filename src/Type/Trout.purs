@@ -34,14 +34,13 @@ data CaptureAll (v :: Symbol) t
 
 -- | A type-level description of an HTTP resource, terminating a chain of
 -- | path literals, captures, and other endpoint type constructs. The `ms` are
--- | the methods handled by this resource. `cts` are the content types that
--- | this resource supports.
-data Resource ms cts
+-- | the methods handled by this resource.
+data Resource ms
 
--- | The `m` symbol is the HTTP method that is handled, and `r` is the
+-- | The `m` symbol is the HTTP method that is handled, `r` is the
 -- | response representation (usually some type specific to the application
--- | domain.)
-data Method (m :: Symbol) r
+-- | domain,) and `cts` are the content types supported.
+data Method (m :: Symbol) r cts
 
 -- | A type-level description of a raw middleware, terminating a chain of path
 -- | literals, captures, and other endpoint type constructs. The `m` symbol is

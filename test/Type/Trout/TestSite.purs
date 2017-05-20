@@ -1,17 +1,17 @@
-module Hyper.Routing.TestSite where
+module Type.Trout.TestSite where
 
 import Prelude
 import Data.Argonaut (class EncodeJson, jsonEmptyObject, (:=), (~>))
 import Data.Either (Either(..))
 import Data.String (trim)
-import Hyper.Routing (type (:/), type (:<|>), type (:>), Capture, CaptureAll, Raw)
-import Hyper.Routing.ContentType.HTML (HTML, class EncodeHTML)
-import Hyper.Routing.ContentType.JSON (JSON)
-import Hyper.Routing.Method (Get)
-import Hyper.Routing.PathPiece (class FromPathPiece, class ToPathPiece)
 import Text.Smolder.HTML (h1)
 import Text.Smolder.Markup (text)
 import Type.Proxy (Proxy(..))
+import Type.Trout (type (:/), type (:<|>), type (:>), Capture, CaptureAll, Raw, Resource)
+import Type.Trout.ContentType.HTML (HTML, class EncodeHTML)
+import Type.Trout.ContentType.JSON (JSON)
+import Type.Trout.Method (Get)
+import Type.Trout.PathPiece (class FromPathPiece, class ToPathPiece)
 
 data Home = Home
 
@@ -45,12 +45,12 @@ instance encodeHTMLWikiPage :: EncodeHTML WikiPage where
   encodeHTML (WikiPage title) = text ("Viewing page: " <> title)
 
 type TestSite =
-  Get (HTML :<|> JSON) Home
+  Resource (Get (HTML :<|> JSON) Home)
   -- nested routes with capture
-  :<|> "users" :/ Capture "user-id" UserID :> ("profile" :/ Get JSON User
-                                               :<|> "friends" :/ Get JSON (Array User))
+  :<|> "users" :/ Capture "user-id" UserID :> ("profile" :/ Resource (Get JSON User)
+                                               :<|> "friends" :/ Resource (Get JSON (Array User)))
   -- capture all
-  :<|> "wiki" :/ CaptureAll "segments" String :> Get HTML WikiPage
+  :<|> "wiki" :/ CaptureAll "segments" String :> Resource (Get HTML WikiPage)
   -- raw middleware
   :<|> "about" :/ Raw "GET"
 
