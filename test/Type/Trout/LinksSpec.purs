@@ -2,7 +2,6 @@ module Type.Trout.LinksSpec (spec) where
 
 import Prelude
 import Data.URI (printURI)
-import Type.Trout ((:<|>))
 import Type.Trout.Links (linksTo)
 import Type.Trout.TestSite (UserID(..), testSite)
 import Test.Spec (Spec, describe, it)
@@ -12,21 +11,20 @@ spec :: forall e. Spec e Unit
 spec = do
   describe "Hyper.Routing.Links" $
     describe "linksTo" $
-
       case linksTo testSite of
-        (homeUri :<|> userLinks :<|> wikiUri :<|> aboutUri) -> do
+        { home, users, wiki, about } -> do
 
           it "returns link for Lit" $
-            printURI homeUri `shouldEqual` "/"
+            printURI home `shouldEqual` "/"
 
           it "returns link for nested routes" $
-            case userLinks (UserID "owi") of
-              (profileUri :<|> friendsUri) -> do
-                  printURI profileUri `shouldEqual` "/users/owi/profile"
-                  printURI friendsUri `shouldEqual` "/users/owi/friends"
+            case users.user (UserID "owi") of
+              { profile, friends } -> do
+                  printURI profile `shouldEqual` "/users/owi/profile"
+                  printURI friends `shouldEqual` "/users/owi/friends"
 
           it "returns link for CaptureAll" $
-            printURI (wikiUri ["foo", "bar", "baz.txt"]) `shouldEqual` "/wiki/foo/bar/baz.txt"
+            printURI (wiki ["foo", "bar", "baz.txt"]) `shouldEqual` "/wiki/foo/bar/baz.txt"
 
           it "returns link for Raw" $
-            printURI aboutUri `shouldEqual` "/about"
+            printURI about `shouldEqual` "/about"
