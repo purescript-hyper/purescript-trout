@@ -1,13 +1,13 @@
 module Type.Trout.TestSite where
 
 import Prelude
-import Data.Argonaut (class EncodeJson, jsonEmptyObject, (:=), (~>))
+import Data.Argonaut (class EncodeJson, assoc, jsonEmptyObject, (~>))
 import Data.Either (Either(..))
 import Data.String (trim)
 import Text.Smolder.HTML (h1)
 import Text.Smolder.Markup (text)
 import Type.Proxy (Proxy(..))
-import Type.Trout (type (:/), type (:<|>), type (:>), Capture, CaptureAll, Raw, Resource)
+import Type.Trout (type (:/), type (:<|>), type (:=), type (:>), Capture, CaptureAll, Raw, Resource)
 import Type.Trout.ContentType.HTML (HTML, class EncodeHTML)
 import Type.Trout.ContentType.JSON (JSON)
 import Type.Trout.Method (Get)
@@ -36,7 +36,7 @@ data User = User UserID
 
 instance encodeUser :: EncodeJson User where
   encodeJson (User (UserID userId)) =
-    "userId" := userId
+    assoc "userId" userId
     ~> jsonEmptyObject
 
 data WikiPage = WikiPage String
@@ -44,15 +44,19 @@ data WikiPage = WikiPage String
 instance encodeHTMLWikiPage :: EncodeHTML WikiPage where
   encodeHTML (WikiPage title) = text ("Viewing page: " <> title)
 
+type UsersRoutes =
+  "user" := Capture "user-id" UserID :> ("profile" := "profile" :/ Resource (Get JSON User)
+                                         :<|>
+                                         "friends" := "friends" :/ Resource (Get JSON (Array User)))
+
 type TestSite =
-  Resource (Get (HTML :<|> JSON) Home)
+  "home" := Resource (Get (HTML :<|> JSON) Home)
   -- nested routes with capture
-  :<|> "users" :/ Capture "user-id" UserID :> ("profile" :/ Resource (Get JSON User)
-                                               :<|> "friends" :/ Resource (Get JSON (Array User)))
+  :<|> "users" := "users" :/ UsersRoutes
   -- capture all
-  :<|> "wiki" :/ CaptureAll "segments" String :> Resource (Get HTML WikiPage)
+  :<|> "wiki" := "wiki" :/ CaptureAll "segments" String :> Resource (Get HTML WikiPage)
   -- raw middleware
-  :<|> "about" :/ Raw "GET"
+  :<|> "about" := "about" :/ Raw "GET"
 
 testSite :: Proxy TestSite
 testSite = Proxy

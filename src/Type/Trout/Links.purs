@@ -6,6 +6,7 @@ module Type.Trout.Links
        ) where
 
 import Prelude
+import Type.Trout.Record as Record
 import Data.Array (singleton, unsnoc)
 import Data.Either (Either(..))
 import Data.Foldable (foldl)
@@ -17,7 +18,7 @@ import Data.Path.Pathy (dir, file, rootDir, (</>))
 import Data.Symbol (class IsSymbol, SProxy(..), reflectSymbol)
 import Data.URI (HierarchicalPart(..), URI(..))
 import Type.Proxy (Proxy(..))
-import Type.Trout (type (:<|>), type (:>), Capture, CaptureAll, Resource, Lit, Raw, (:<|>))
+import Type.Trout (type (:<|>), type (:=), type (:>), Capture, CaptureAll, Lit, Raw, Resource)
 import Type.Trout.PathPiece (class ToPathPiece, toPathPiece)
 
 -- | A link, containing zero or more path segments.
@@ -75,10 +76,28 @@ instance hasLinksResource :: HasLinks (Resource ms) URI where
 instance hasLinksRaw :: HasLinks (Raw m) URI where
   toLinks _ = linkToURI
 
-instance hasLinksAltE :: (HasLinks e1 mk1, HasLinks e2 mk2) => HasLinks (e1 :<|> e2) (mk1 :<|> mk2) where
+instance hasLinksAlt :: ( HasLinks t1 mk1
+                        , HasLinks t2 (Record mk2)
+                        , IsSymbol name
+                        , RowCons name mk1 mk2 links
+                        )
+                        => HasLinks (name := t1 :<|> t2) (Record links) where
   toLinks _ link =
-    toLinks (Proxy :: Proxy e1) link
-    :<|> toLinks (Proxy :: Proxy e2) link
+    Record.insert
+    (SProxy :: SProxy name)
+    (toLinks (Proxy :: Proxy t1) link)
+    (toLinks (Proxy :: Proxy t2) link)
+
+instance hasLinksNamed :: ( HasLinks t mk
+                          , IsSymbol name
+                          , RowCons name mk () out
+                          )
+                          => HasLinks (name := t) (Record out) where
+  toLinks _ link =
+    Record.insert
+    (SProxy :: SProxy name)
+    (toLinks (Proxy :: Proxy t) link)
+    {}
 
 -- | Derive links for the type `t`.
 linksTo :: forall t links. HasLinks t links => Proxy t -> links

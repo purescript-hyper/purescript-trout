@@ -8,13 +8,14 @@ module Type.Trout
        , Raw
        , Sub
        , LitSub
-       , AltE(..)
+       , Alt(..)
+       , Named
        , QueryParam
        , QueryParams
        , type (:>)
        , type (:/)
        , type (:<|>)
-       , (:<|>)
+       , type (:=)
        ) where
 
 -- | A literal path segment, matching paths where the next segment is equal
@@ -57,18 +58,15 @@ data Sub e t
 -- | `"a" :/ "b" :/ ...`.
 type LitSub (v :: Symbol) t = Sub (Lit v) t
 
--- | `AltE` respresents choice, i.e. that endpoint `a` is tried first, and if
--- | it fails, `b` is tried next. `AltE` is written infix using `:<|>` and is
--- | used to compose multiple endpoint types into a larger API or site. It is
--- | used to build up recursive structures, so `AltE a (AltE b c)` can be
--- | written `a :<|> b :<|> c`.
--- |
--- | It it also used to extract information from a type, where the information
--- | has the same structure as the type. For instance, when extracting links
--- | from an `AltE` type, you can pattern match the result using `:<|>`
--- | to access the links of `a` and `b`. That also works recursively with a
--- | pattern match like `a :<|> b :<|> c :<|> d`.
-data AltE a b = AltE a b
+-- | `Alt` represents choice, i.e. that endpoint `a` is tried first, and if
+-- | it fails, `b` is tried next. `Alt` is written infix using `:<|>` and is
+-- | used to compose multiple endpoint types into a larger API or site. Using
+-- | the infix operator, `Alt a (Alt b c)` can be written `a :<|> b :<|> c`.
+data Alt a b
+
+-- | `Named` associates some routing type `t` with a `name` symbol. This is
+-- | used to give names to combined routes in a routing type.
+data Named (name :: Symbol) t
 
 -- | Captures the first value of the query string parameter, or `Nothing`. `t`
 -- | is the type of the value. `k` is the name of the key as a `Symbol`.
@@ -80,5 +78,5 @@ data QueryParams (k :: Symbol) t
 
 infixr 9 type Sub as :>
 infixr 9 type LitSub as :/
-infixr 8 type AltE as :<|>
-infixr 8 AltE as :<|>
+infixr 8 type Named as :=
+infixr 7 type Alt as :<|>
