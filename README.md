@@ -39,6 +39,29 @@ This library's API documentation is published [on Pursuit](https://pursuit.pures
 
 ## Changelog
 
+* 0.10.0 (not released yet)
+  - Routes are now named. The following routes are written in the old format,
+    compatible with 0.9.x:
+
+    ```purescript
+    type TestSite =
+           Resource (Get (HTML :<|> JSON) Home)
+      :<|> "users" :/ Resource (Get (HTML :<|> JSON) Home)
+    ```
+
+    When ported to 0.10.0, they become named:
+
+    ```purescript
+    type TestSite =
+           "home"  := Resource (Get (HTML :<|> JSON) Home)
+      :<|> "users" := "users" :/ Resource (Get (HTML :<|> JSON) Home)
+    ```
+
+    The route name and the literal route segments are orthogonal; there is no
+    relation between the name `"users"` and the segment `"users"` in the above
+    routes, as far as Trout is concerned. The name is only used to identify
+    the route when deriving functionality from the routes, e.g. to obtain a
+    URI to a specific resource.
 * 0.9.1
   - Change `AltE` infix operator to right-associative
 * 0.9.0
