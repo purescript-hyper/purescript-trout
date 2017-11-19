@@ -6,6 +6,7 @@ module Type.Trout.ContentType.HTML
        ) where
 
 import Prelude
+import Control.Monad.Free (Free)
 import Data.MediaType.Common (textHTML)
 import Data.Tuple (Tuple(..))
 import Data.URI.URI (URI, print)
@@ -35,7 +36,7 @@ class EncodeHTML a where
 instance hasMediaTypeHTML :: HasMediaType HTML where
   getMediaType _ = textHTML
 
-instance mimeRenderHTML :: MimeRender (MarkupM Unit Unit) HTML String where
+instance mimeRenderHTML :: MimeRender (Free (MarkupM Unit) Unit) HTML String where
   mimeRender p = render
 
 instance mimeRenderHTMLEncodeHTML :: EncodeHTML a => MimeRender a HTML String where
