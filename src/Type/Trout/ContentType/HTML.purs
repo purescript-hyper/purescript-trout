@@ -6,9 +6,10 @@ module Type.Trout.ContentType.HTML
        ) where
 
 import Prelude
+import Control.Monad.Free (Free)
 import Data.MediaType.Common (textHTML)
 import Data.Tuple (Tuple(..))
-import Data.URI (URI, printURI)
+import Data.URI.URI (URI, print)
 import Text.Smolder.HTML (a)
 import Text.Smolder.HTML.Attributes (href)
 import Text.Smolder.Markup (Markup, MarkupM, (!))
@@ -25,7 +26,7 @@ data HTML
 -- | Helper function for generating a Smolder anchor tag based on
 -- | a `URI`.
 linkTo :: URI -> Markup Unit -> Markup Unit
-linkTo uri = a ! href (printURI uri)
+linkTo uri = a ! href (print uri)
 
 -- | Encodes a value as HTML, using Smolder markup.
 class EncodeHTML a where
@@ -35,7 +36,7 @@ class EncodeHTML a where
 instance hasMediaTypeHTML :: HasMediaType HTML where
   getMediaType _ = textHTML
 
-instance mimeRenderHTML :: MimeRender (MarkupM Unit Unit) HTML String where
+instance mimeRenderHTML :: MimeRender (Free (MarkupM Unit) Unit) HTML String where
   mimeRender p = render
 
 instance mimeRenderHTMLEncodeHTML :: EncodeHTML a => MimeRender a HTML String where
