@@ -1,7 +1,7 @@
 module Type.Trout.LinksSpec (spec) where
 
 import Prelude
-import Data.URI (printURI)
+import Data.URI.URI (print)
 import Type.Trout.Links (linksTo)
 import Type.Trout.TestSite (UserID(..), testSite)
 import Test.Spec (Spec, describe, it)
@@ -15,16 +15,16 @@ spec = do
         { home, users, wiki, about } -> do
 
           it "returns link for Lit" $
-            printURI home `shouldEqual` "/"
+            print home `shouldEqual` "/"
 
           it "returns link for nested routes" $
             case users.user (UserID "owi") of
               { profile, friends } -> do
-                  printURI profile `shouldEqual` "/users/owi/profile"
-                  printURI friends `shouldEqual` "/users/owi/friends"
+                  print profile `shouldEqual` "/users/owi/profile"
+                  print friends `shouldEqual` "/users/owi/friends"
 
           it "returns link for CaptureAll" $
-            printURI (wiki ["foo", "bar", "baz.txt"]) `shouldEqual` "/wiki/foo/bar/baz.txt"
+            print (wiki ["foo", "bar", "baz.txt"]) `shouldEqual` "/wiki/foo/bar/baz.txt"
 
           it "returns link for Raw" $
-            printURI about `shouldEqual` "/about"
+            print about `shouldEqual` "/about"
