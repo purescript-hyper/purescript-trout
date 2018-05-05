@@ -1,11 +1,13 @@
 module Type.Trout.LinksSpec (spec) where
 
 import Prelude
-import Data.URI (printURI)
-import Type.Trout.Links (linksTo)
-import Type.Trout.TestSite (UserID(..), testSite)
+
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
+import Type.Trout.Links (linksTo)
+import Type.Trout.TestSite (UserID(..), testSite)
+import URI.HostPortPair as HostPortPair
+import URI.URIRef as URIRef
 
 spec :: forall e. Spec e Unit
 spec = do
@@ -28,3 +30,12 @@ spec = do
 
           it "returns link for Raw" $
             printURI about `shouldEqual` "/about"
+  where
+    printURI = URIRef.print { printUserInfo: id
+      , printHosts: HostPortPair.print id id
+      , printPath: id
+      , printHierPath: id
+      , printQuery: id
+      , printFragment: id
+      , printRelPath: id
+      }

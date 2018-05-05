@@ -3,17 +3,24 @@ module Type.Trout.ContentType.HTML
        , linkTo
        , class EncodeHTML
        , encodeHTML
+       , TroutURI
        ) where
 
 import Prelude
+
+import Control.Monad.Free (Free)
 import Data.MediaType.Common (textHTML)
 import Data.Tuple (Tuple(..))
-import Data.URI (URI, printURI)
 import Text.Smolder.HTML (a)
 import Text.Smolder.HTML.Attributes (href)
 import Text.Smolder.Markup (Markup, MarkupM, (!))
 import Text.Smolder.Renderer.String (render)
 import Type.Trout.ContentType (class AllMimeRender, class HasMediaType, class MimeRender, getMediaType, mimeRender)
+import URI (Fragment, HierPath, Host, Path, Port, Query, RelPath, URIRef, UserInfo)
+import URI.HostPortPair (HostPortPair)
+import URI.HostPortPair as HostPortPair
+import URI.URIRef (URIRefPrintOptions)
+import URI.URIRef as URIRef
 
 -- | A content type, corresponding to the `text/html` media type.
 data HTML
@@ -22,10 +29,23 @@ data HTML
 -- perhaps by wrapping the URI type and adding some phantom
 -- type parameter for the HTTP method.
 
+type TroutURI = URIRef UserInfo (HostPortPair Host Port) Path HierPath RelPath Query Fragment
+
+uriOpts ∷ Record (URIRefPrintOptions UserInfo (HostPortPair Host Port) Path HierPath RelPath Query Fragment ()) 
+uriOpts =
+  { printUserInfo: id
+  , printHosts: HostPortPair.print id id
+  , printPath: id
+  , printHierPath: id
+  , printQuery: id
+  , printFragment: id
+  , printRelPath: id
+  }
+
 -- | Helper function for generating a Smolder anchor tag based on
 -- | a `URI`.
-linkTo :: URI -> Markup Unit -> Markup Unit
-linkTo uri = a ! href (printURI uri)
+linkTo :: TroutURI -> Markup Unit -> Markup Unit
+linkTo uri = a ! href (URIRef.print uriOpts uri)
 
 -- | Encodes a value as HTML, using Smolder markup.
 class EncodeHTML a where
@@ -35,7 +55,7 @@ class EncodeHTML a where
 instance hasMediaTypeHTML :: HasMediaType HTML where
   getMediaType _ = textHTML
 
-instance mimeRenderHTML :: MimeRender (MarkupM Unit Unit) HTML String where
+instance mimeRenderHTML :: MimeRender (Free (MarkupM e) Unit) HTML String where
   mimeRender p = render
 
 instance mimeRenderHTMLEncodeHTML :: EncodeHTML a => MimeRender a HTML String where

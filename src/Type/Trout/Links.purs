@@ -6,20 +6,24 @@ module Type.Trout.Links
        ) where
 
 import Prelude
-import Type.Trout.Record as Record
-import Data.Array (singleton, unsnoc)
+
+import Data.Array (singleton, uncons)
 import Data.Either (Either(..))
-import Data.Foldable (foldl)
 import Data.Generic (class Generic)
 import Data.Maybe (Maybe(..))
 import Data.Monoid (class Monoid, mempty)
 import Data.Newtype (class Newtype)
-import Data.Path.Pathy (dir, file, rootDir, (</>))
+import Data.String.NonEmpty as NES
 import Data.Symbol (class IsSymbol, SProxy(..), reflectSymbol)
-import Data.URI (HierarchicalPart(..), URI(..))
+import Data.These (These)
+import Data.Tuple (Tuple(..))
 import Type.Proxy (Proxy(..))
 import Type.Trout (type (:<|>), type (:=), type (:>), Capture, CaptureAll, Lit, Raw, Resource)
+import Type.Trout.ContentType.HTML (TroutURI)
 import Type.Trout.PathPiece (class ToPathPiece, toPathPiece)
+import Type.Trout.Record as Record
+import URI (Fragment, Host, Path, PathAbsolute(..), PathNoScheme, PathRootless, Port, Query, RelativePart(..), RelativeRef(..), URI, UserInfo)
+import URI.Path.Segment (segmentFromString, segmentNZFromString)
 
 -- | A link, containing zero or more path segments.
 newtype Link = Link (Array String)
@@ -34,20 +38,20 @@ derive instance newtypeLink :: Newtype Link _
 derive instance genericLink :: Generic Link
 derive instance eqLink :: Eq Link
 
-linkToURI :: Link -> URI
+linkToURI :: Link -> TroutURI
 linkToURI (Link segments) =
-  URI
-  Nothing
-  (HierarchicalPart Nothing (Just path))
+  Right $ RelativeRef
+  (RelativePartNoAuth $ Just path)
   Nothing
   Nothing
   where
     path =
-      case unsnoc segments of
-        Just { init, last } ->
-          Right (foldl (</>) rootDir (map dir init) </> file last)
-        Nothing ->
-          Left rootDir
+      case uncons segments of
+        Just { head, tail }
+          | Just head' <- NES.fromString head
+          -> Left $ PathAbsolute $ Just $ Tuple (segmentNZFromString head') (segmentFromString <$> tail)
+        _ ->
+          Left $ PathAbsolute Nothing
 
 -- | A routing type `t` which has links of type `links`.
 class HasLinks t links | t -> links where
@@ -70,10 +74,16 @@ instance hasLinksCaptureAll :: (HasLinks sub subMk, IsSymbol c, ToPathPiece t)
   toLinks _ l =
     toLinks (Proxy :: Proxy sub) <<< append l <<< Link <<< map toPathPiece
 
-instance hasLinksResource :: HasLinks (Resource ms) URI where
+instance hasLinksResource :: HasLinks (Resource ms) 
+  (Either 
+    (URI UserInfo (Maybe (These Host Port)) Path (Either PathAbsolute PathRootless) Query Fragment)
+    (RelativeRef UserInfo (Maybe (These Host Port)) Path (Either PathAbsolute PathNoScheme) Query Fragment)) where
   toLinks _ = linkToURI
 
-instance hasLinksRaw :: HasLinks (Raw m) URI where
+instance hasLinksRaw :: HasLinks (Raw m)
+  (Either 
+    (URI UserInfo (Maybe (These Host Port)) Path (Either PathAbsolute PathRootless) Query Fragment)
+    (RelativeRef UserInfo (Maybe (These Host Port)) Path (Either PathAbsolute PathNoScheme) Query Fragment)) where
   toLinks _ = linkToURI
 
 instance hasLinksAlt :: ( HasLinks t1 mk1
