@@ -33,13 +33,13 @@ type TroutURI = URIRef UserInfo (HostPortPair Host Port) Path HierPath RelPath Q
 
 uriOpts ∷ Record (URIRefPrintOptions UserInfo (HostPortPair Host Port) Path HierPath RelPath Query Fragment ()) 
 uriOpts =
-  { printUserInfo: id
-  , printHosts: HostPortPair.print id id
-  , printPath: id
-  , printHierPath: id
-  , printQuery: id
-  , printFragment: id
-  , printRelPath: id
+  { printUserInfo: identity
+  , printHosts: HostPortPair.print identity identity
+  , printPath: identity
+  , printHierPath: identity
+  , printQuery: identity
+  , printFragment: identity
+  , printRelPath: identity
   }
 
 -- | Helper function for generating a Smolder anchor tag based on
@@ -55,8 +55,9 @@ class EncodeHTML a where
 instance hasMediaTypeHTML :: HasMediaType HTML where
   getMediaType _ = textHTML
 
-instance mimeRenderHTML :: MimeRender (Free (MarkupM e) Unit) HTML String where
-  mimeRender p = render
+--TODO
+--instance mimeRenderHTML :: MimeRender (Free (MarkupM e) Unit) HTML String where
+--  mimeRender p = render
 
 instance mimeRenderHTMLEncodeHTML :: EncodeHTML a => MimeRender a HTML String where
   mimeRender _ = render <<< encodeHTML

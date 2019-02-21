@@ -37,6 +37,8 @@ instance allMimeRenderAltAlt :: ( MimeRender a ct1 b
       p = Proxy :: Proxy ct1
       p' = Proxy :: Proxy (ct2 :<|> ct3)
 
+{-
+
 instance allMimeRenderAlt :: ( MimeRender a ct1 b
                              , HasMediaType ct1
                              , MimeRender a ct2 b
@@ -49,3 +51,5 @@ instance allMimeRenderAlt :: ( MimeRender a ct1 b
     where
       p1 = Proxy :: Proxy ct1
       p2 = Proxy :: Proxy ct2
+
+-}

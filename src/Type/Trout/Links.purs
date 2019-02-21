@@ -9,7 +9,7 @@ import Prelude
 
 import Data.Array (singleton, uncons)
 import Data.Either (Either(..))
-import Data.Generic (class Generic)
+import Data.Generic.Rep (class Generic)
 import Data.Maybe (Maybe(..))
 import Data.Monoid (class Monoid, mempty)
 import Data.Newtype (class Newtype)
@@ -17,6 +17,7 @@ import Data.String.NonEmpty as NES
 import Data.Symbol (class IsSymbol, SProxy(..), reflectSymbol)
 import Data.These (These)
 import Data.Tuple (Tuple(..))
+import Prim.Row (class Cons)
 import Type.Proxy (Proxy(..))
 import Type.Trout (type (:<|>), type (:=), type (:>), Capture, CaptureAll, Lit, Raw, Resource)
 import Type.Trout.ContentType.HTML (TroutURI)
@@ -35,7 +36,7 @@ instance semigroupLink :: Semigroup Link where
   append (Link p1) (Link p2) = Link (p1 <> p2)
 
 derive instance newtypeLink :: Newtype Link _
-derive instance genericLink :: Generic Link
+derive instance genericLink :: Generic Link _
 derive instance eqLink :: Eq Link
 
 linkToURI :: Link -> TroutURI
@@ -89,7 +90,7 @@ instance hasLinksRaw :: HasLinks (Raw m)
 instance hasLinksAlt :: ( HasLinks t1 mk1
                         , HasLinks t2 (Record mk2)
                         , IsSymbol name
-                        , RowCons name mk1 mk2 links
+                        , Cons name mk1 mk2 links
                         )
                         => HasLinks (name := t1 :<|> t2) (Record links) where
   toLinks _ link =
@@ -100,7 +101,7 @@ instance hasLinksAlt :: ( HasLinks t1 mk1
 
 instance hasLinksNamed :: ( HasLinks t mk
                           , IsSymbol name
-                          , RowCons name mk () out
+                          , Cons name mk () out
                           )
                           => HasLinks (name := t) (Record out) where
   toLinks _ link =

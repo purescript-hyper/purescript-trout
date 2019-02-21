@@ -12,17 +12,16 @@
     "output"
   ],
   "dependencies": {
-    "purescript-prelude": "^3.3.0",
-    "purescript-symbols": "^3.0.0",
-    "purescript-uri": "^5.1.0",
-    "purescript-media-types": "^3.0.0",
-    "purescript-argonaut": "^3.1.0",
-    "purescript-smolder": "^10.2.0"
+    "purescript-prelude": "^4.1.0",
+    "purescript-uri": "^6.1.0",
+    "purescript-media-types": "^4.0.1",
+    "purescript-argonaut": "^5.0.0",
+    "purescript-smolder": "^11.0.1"
   },
   "devDependencies": {
-    "purescript-console": "^3.0.0",
-    "purescript-psci-support": "^3.0.0",
-    "purescript-spec": "^2.0.0",
-    "purescript-spec-discovery": "^2.0.0"
+    "purescript-console": "^4.2.0",
+    "purescript-psci-support": "^4.0.0",
+    "purescript-spec": "^3.1.0",
+    "purescript-spec-discovery": "^3.1.0"
   }
 }

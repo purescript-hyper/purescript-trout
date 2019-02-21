@@ -9,7 +9,7 @@ import Type.Trout.TestSite (UserID(..), testSite)
 import URI.HostPortPair as HostPortPair
 import URI.URIRef as URIRef
 
-spec :: forall e. Spec e Unit
+spec :: Spec Unit
 spec = do
   describe "Hyper.Routing.Links" $
     describe "linksTo" $
@@ -31,11 +31,11 @@ spec = do
           it "returns link for Raw" $
             printURI about `shouldEqual` "/about"
   where
-    printURI = URIRef.print { printUserInfo: id
-      , printHosts: HostPortPair.print id id
-      , printPath: id
-      , printHierPath: id
-      , printQuery: id
-      , printFragment: id
-      , printRelPath: id
+    printURI = URIRef.print { printUserInfo: identity
+      , printHosts: HostPortPair.print identity identity
+      , printPath: identity
+      , printHierPath: identity
+      , printQuery: identity
+      , printFragment: identity
+      , printRelPath: identity
       }
