@@ -11,7 +11,6 @@ import Data.Array (singleton, uncons)
 import Data.Either (Either(..))
 import Data.Generic.Rep (class Generic)
 import Data.Maybe (Maybe(..))
-import Data.Monoid (class Monoid, mempty)
 import Data.Newtype (class Newtype)
 import Data.String.NonEmpty as NES
 import Data.Symbol (class IsSymbol, SProxy(..), reflectSymbol)
