@@ -1,7 +1,7 @@
 module Type.Trout.PathPiece where
 
 import Data.Int as Int
-import Control.Category (id)
+import Control.Category (identity)
 import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
 import Data.Semigroup ((<>))
@@ -11,7 +11,7 @@ class ToPathPiece x where
   toPathPiece :: x -> String
 
 instance toPathPieceString :: ToPathPiece String where
-  toPathPiece = id
+  toPathPiece = identity
 
 instance toPathPieceInt :: ToPathPiece Int where
   toPathPiece = show

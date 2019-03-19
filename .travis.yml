@@ -8,10 +8,10 @@ env:
   - PATH=$HOME/purescript:$PATH
 
 install:
-- wget -O $HOME/purescript.tar.gz https://github.com/purescript/purescript/releases/download/v0.11.7/linux64.tar.gz
+- wget -O $HOME/purescript.tar.gz https://github.com/purescript/purescript/releases/download/v0.12.3/linux64.tar.gz
 - tar -xvf $HOME/purescript.tar.gz -C $HOME/
 - chmod a+x $HOME/purescript
-- npm install -g bower pulp@12.2.0
+- npm install -g bower pulp@12.3.1
 - bower install
 
 script:
