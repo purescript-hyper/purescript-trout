@@ -39,6 +39,9 @@ This library's API documentation is published [on Pursuit](https://pursuit.pures
 
 ## Changelog
 
+* 0.11.0
+  - PureScript 0.12 compiler support
+  - Various dependency upgrades
 * 0.10.0
   - Routes are now named. The following routes are written in the old format,
     compatible with 0.9.x:
