@@ -8,10 +8,11 @@ env:
   - PATH=$HOME/purescript:$PATH
 
 install:
-- wget -O $HOME/purescript.tar.gz https://github.com/purescript/purescript/releases/download/v0.12.3/linux64.tar.gz
+- wget -O $HOME/purescript.tar.gz https://github.com/purescript/purescript/releases/download/v0.13.0/linux64.tar.gz
 - tar -xvf $HOME/purescript.tar.gz -C $HOME/
 - chmod a+x $HOME/purescript
-- npm install -g bower pulp@12.3.1
+- npm install -g bower pulp@13.0.0 spago@0.8.3
+- spago install
 - bower install
 
 script:
@@ -19,9 +20,7 @@ script:
 - if [[ "$TRAVIS_PULL_REQUEST" != "false" ]]; then export VERSION=pull-request-job-$TRAVIS_JOB_NUMBER;
   fi
 - if [[ "$TRAVIS_TAG" != "" ]]; then export VERSION=$TRAVIS_TAG; fi
-- travis_wait pulp build
-- travis_wait pulp test
-
-cache:
-  directories:
-  - output
+- spago build
+- spago test
+- rm -rf .spago output
+- pulp build
