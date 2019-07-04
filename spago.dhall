@@ -1,5 +1,5 @@
 { name =
-    "purescript-trout"
+    "trout"
 , dependencies =
     [ "argonaut", "media-types", "prelude", "smolder", "spec", "spec-discovery", "uri" ]
 , packages =
