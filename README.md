@@ -39,6 +39,9 @@ This library's API documentation is published [on Pursuit](https://pursuit.pures
 
 ## Changelog
 
+* 0.12.0
+  - PureScript 0.13 compiler support
+  - Various dependency upgrades
 * 0.11.0
   - PureScript 0.12 compiler support
   - Various dependency upgrades
