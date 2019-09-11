@@ -12,6 +12,7 @@ module Type.Trout
        , Named
        , QueryParam
        , QueryParams
+       , ReqBody
        , type (:>)
        , type (:/)
        , type (:<|>)
@@ -75,6 +76,11 @@ data QueryParam (k :: Symbol) t
 -- | Captures all values of the query string parameter, or `[]`. `t` is the
 -- | type of the value. `k` is the name of the key as a `Symbol`.
 data QueryParams (k :: Symbol) t
+
+-- | Captures the request body. The `r` parameter is the type represented by
+-- | the request body (usually some type specific to the application domain),
+-- | and `cts` represents the content types supported.
+data ReqBody r cts
 
 infixr 9 type Sub as :>
 infixr 9 type LitSub as :/

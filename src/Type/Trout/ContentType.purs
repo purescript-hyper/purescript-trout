@@ -1,6 +1,7 @@
 module Type.Trout.ContentType where
 
 import Prelude
+import Data.Either (Either)
 import Data.List.NonEmpty (NonEmptyList)
 import Data.MediaType (MediaType)
 import Data.Tuple (Tuple(..))
@@ -15,6 +16,9 @@ class HasMediaType ct where
 -- | a value of type `b`.
 class MimeRender a ct b | a -> b, ct -> b  where
   mimeRender :: Proxy ct -> a -> b
+
+class MimeParse b ct a | b -> a, ct -> b where
+  mimeParse :: Proxy ct -> b -> Either String a
 
 -- | Renders a value of type `a`, as appropriate for each content type in `cts`,
 -- | as a non-empty list of values of type `b`, corresponding to the content
