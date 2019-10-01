@@ -17,6 +17,8 @@ class HasMediaType ct where
 class MimeRender a ct b | a -> b, ct -> b  where
   mimeRender :: Proxy ct -> a -> b
 
+-- | Parses a value of type `a`, as appropriate for content type `ct`, from
+-- | a value of type `b`.
 class MimeParse b ct a | b -> a, ct -> b where
   mimeParse :: Proxy ct -> b -> Either String a
 
