@@ -39,6 +39,8 @@ This library's API documentation is published [on Pursuit](https://pursuit.pures
 
 ## Changelog
 
+* 0.12.2
+  - Add `Header`.
 * 0.12.1
   - Add `ReqBody`.
 * 0.12.0
