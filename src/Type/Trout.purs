@@ -12,6 +12,7 @@ module Type.Trout
        , Named
        , QueryParam
        , QueryParams
+       , Header
        , ReqBody
        , type (:>)
        , type (:/)
@@ -76,6 +77,10 @@ data QueryParam (k :: Symbol) t
 -- | Captures all values of the query string parameter, or `[]`. `t` is the
 -- | type of the value. `k` is the name of the key as a `Symbol`.
 data QueryParams (k :: Symbol) t
+
+-- | Captures the value of a request header. `t` is the type of the value.
+-- | `n` is the name of the header as a `Symbol`.
+data Header (n :: Symbol) t
 
 -- | Captures the request body. The `r` parameter is the type represented by
 -- | the request body (usually some type specific to the application domain),
