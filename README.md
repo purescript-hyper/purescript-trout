@@ -21,7 +21,7 @@ generated type-safe URIs to endpoints.
 
 The primary use of Trout right now is for [Hyper](https://hyper.wickstrom.tech)
 and the
-[purescript-hypertrout](https://owickstrom.github.io/purescript-hypertrout/)
+[purescript-hypertrout](https://purescript-hyper.github.io/purescript-hypertrout/)
 server package. There is, however, nothing Hyper-specific about this package.
 
 ## Usage
@@ -31,7 +31,7 @@ bower install --save purescript-trout
 ```
 
 _This package should get its own proper documentation soon. In the meantime,
-see [purescript-hypertrout](https://owickstrom.github.io/purescript-hypertrout/)._
+see [purescript-hypertrout](https://purescript-hyper.github.io/purescript-hypertrout/)._
 
 ## API Documentation
 
