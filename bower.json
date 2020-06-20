@@ -15,14 +15,14 @@
     "purescript-prelude": "^4.1.1",
     "purescript-uri": "^7.0.0",
     "purescript-media-types": "^4.0.1",
-    "purescript-argonaut": "^6.0.0",
-    "purescript-smolder": "^12.0.0"
+    "purescript-argonaut": "^7.0.0",
+    "purescript-smolder": "^12.3.0"
   },
   "devDependencies": {
-    "purescript-spec": "^4.0.0",
+    "purescript-spec": "^4.0.1",
     "purescript-spec-discovery": "^4.0.0"
   },
   "resolutions": {
-    "purescript-spec": "^4.0.0"
+    "purescript-spec": "^4.0.1"
   }
 }
